@@ -3,7 +3,6 @@ import morgan from 'morgan';
 import path from 'path';
 import helmet from 'helmet';
 import 'dotenv/config'
-console.log(process.env);
 
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';

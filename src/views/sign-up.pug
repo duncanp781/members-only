@@ -1,0 +1,10 @@
+extends layout 
+block content 
+  form(method='POST' action = '')
+    label(for='username') Enter your username: 
+    input#username(type='text' required='true' name='username')
+    label(for='password') Enter your password:
+    input#password(type='password' required='true' name='password')
+    label(for='confirm-password') Confirm your password:
+    input#confirm-password(type='password' required='true' name='confirm-password')
+    button(type='submit') Submit

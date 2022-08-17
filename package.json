@@ -72,6 +72,7 @@
     "jet-logger": "^1.2.2",
     "jsonfile": "^6.1.0",
     "module-alias": "^2.2.2",
+    "mongoose": "^6.5.2",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
