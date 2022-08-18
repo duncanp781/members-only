@@ -9,4 +9,14 @@ block content
     a(href = '/sign-up') Sign up
     a(href = '/sign-in') Sign in
   
-  p=message
+  if currentUser
+    a(href = '/post-form') Make a post!
+    if (!currentUser.clubhouse)
+      h3 Join the clubhouse to see more information about each post!
+    for post in posts 
+      h4= post.title
+      if (currentUser.clubhouse)
+        h5 #{post.user.username} #{post.createdAt}
+      p= post.content
+  else
+    h4 You need to sign in to view posts.

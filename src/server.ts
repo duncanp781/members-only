@@ -11,7 +11,7 @@ import session from "express-session";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 
-import { indexRouter } from "./routes";
+import { indexRouter } from "./routes/routes";
 
 import User, { IUser } from "@models/user";
 import Post from "@models/post";

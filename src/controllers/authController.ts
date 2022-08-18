@@ -4,14 +4,8 @@ import bcrypt from "bcryptjs";
 import passport from "passport";
 import { check } from "express-validator";
 
-const Controller = {
-  get_index: (req: Request, res: Response, next: NextFunction) => {
-    res.render("index", {
-      title: "Index",
-      message: "Test",
-      user: req.user,
-    });
-  },
+const AuthController: any = {
+  
 
   get_signup: (req: Request, res: Response, next: NextFunction) => {
     res.render("sign-up", {
@@ -64,4 +58,4 @@ const Controller = {
     });
   },
 };
-export default Controller;
+export default AuthController;
