@@ -16,8 +16,19 @@ const PostController: any = {
     })
   },
 
-  get_posts: (req: Request, res: Response, next: NextFunction) => {
-    res.send('not implemented: GET posts');
+  post_clubhouse_password: (req: Request, res: Response, next: NextFunction) => {
+    if(req.body.clubhousePassword == process.env.CLUBHOUSE_PW){
+      User.findByIdAndUpdate(res.locals.currentUser._id, {
+        $set: {clubhouse: true},
+      }, (err, newUser) => {
+        if(err){
+          return next(err);
+        }
+        res.locals.currentUser = newUser;
+        res.redirect('/');
+      })
+    }
+    
   },
 
   get_post_form: (req: Request, res: Response, next: NextFunction) => {

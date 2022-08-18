@@ -13,6 +13,11 @@ block content
     a(href = '/post-form') Make a post!
     if (!currentUser.clubhouse)
       h3 Join the clubhouse to see more information about each post!
+      h4 If you know the password for the clubhouse, enter it below.
+      form(method = 'POST' action='/clubhouse-password')
+        label(for='clubhousePassword') Clubhouse password:
+        input(type='password' name='clubhousePassword' required=true)
+        button(type='submit') Submit
     for post in posts 
       h4= post.title
       if (currentUser.clubhouse)

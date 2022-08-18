@@ -21,4 +21,6 @@ router.get('/post-form', PostController.get_post_form);
 
 router.post('/post-form', PostController.post_post_form);
 
+router.post('/clubhouse-password', PostController.post_clubhouse_password);
+
 export {router as indexRouter};
