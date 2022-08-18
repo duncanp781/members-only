@@ -5,8 +5,6 @@ import passport from "passport";
 import { check } from "express-validator";
 
 const AuthController: any = {
-  
-
   get_signup: (req: Request, res: Response, next: NextFunction) => {
     res.render("sign-up", {
       title: "Sign Up",
@@ -25,15 +23,30 @@ const AuthController: any = {
       if (err) {
         return next(err);
       }
-      const user = new User({
+      const user: any = new User({
         username: req.body.username,
         password: hashedPW,
         clubhouse: false,
-      }).save((err) => {
+        admin: req.body.admin === "on",
+      })
+      user.save((err: any) => {
+        //I can't figure out the typing of this error, 
+        //since it seems like not all mongoose errors have codes.
         if (err) {
+          if (err.code && err.code === 11000) {
+            res.render("sign-up", {
+              title: "Sign up",
+              errors: ["Username already in use"],
+            });
+          }
           return next(err);
         }
-        res.redirect("/");
+        
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        req.login(user, function(err){
+          if(err){return next(err);}
+          return res.redirect('/')
+        });
       });
     });
   },

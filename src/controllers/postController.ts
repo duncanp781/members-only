@@ -24,7 +24,6 @@ const PostController: any = {
         if(err){
           return next(err);
         }
-        res.locals.currentUser = newUser;
         res.redirect('/');
       })
     }

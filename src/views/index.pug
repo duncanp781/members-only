@@ -23,5 +23,7 @@ block content
       if (currentUser.clubhouse)
         h5 #{post.user.username} #{post.createdAt}
       p= post.content
+      if currentUser.admin
+        a(href=('/' + post._id + '/delete')) Delete post
   else
     h4 You need to sign in to view posts.

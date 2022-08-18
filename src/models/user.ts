@@ -9,7 +9,7 @@ export interface IUser {
 }
 
 const UserSchema = new Schema<IUser>({
-  username: {type: String, required: true, maxLength: 25},
+  username: {type: String, required: true, maxLength: 25, unique: true},
   password: {type: String, required: true},
   clubhouse: {type: Boolean, required: true},
   admin: {type: Boolean},
