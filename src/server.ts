@@ -19,6 +19,8 @@ import Post from "@models/post";
 import mongoose from "mongoose";
 import { ConnectionOptions } from "tls";
 
+import bcrypt from 'bcryptjs';
+
 // Constants
 const app = express();
 /***********************************************************************************
@@ -75,6 +77,18 @@ passport.use(
         if (!user) {
           return done(null, false, { message: "Incorrect Username" });
         }
+        bcrypt.compare(password, user.password, (err, res) => {
+          if(err){
+            return done(err, false);
+          }
+          if (res) {
+            // passwords match! log user in
+            return done(null, user)
+          } else {
+            // passwords do not match!
+            return done(null, false, { message: "Incorrect password" })
+          }
+        })
       }
     );
   })
@@ -90,6 +104,17 @@ passport.deserializeUser(function (id, done) {
     done(err, user);
   });
 });
+
+//Passport middlewares
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Passport middleware to give us access to user
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+})
+
 
 /***********************************************************************************
  *                                  Front-end content

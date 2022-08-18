@@ -1,4 +1,12 @@
 extends layout
 block content 
   h1=title 
+  if (currentUser)
+    h2 Welcome back, #{currentUser.username}
+    a(href ='/sign-out') Sign out
+  else
+    h2 Please sign up or sign in.
+    a(href = '/sign-up') Sign up
+    a(href = '/sign-in') Sign in
+  
   p=message
