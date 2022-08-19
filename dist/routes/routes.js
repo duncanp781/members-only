@@ -20,3 +20,4 @@ router.get('/sign-out', authController_1.default.get_signout);
 router.get('/post-form', postController_1.default.get_post_form);
 router.post('/post-form', postController_1.default.post_post_form);
 router.post('/clubhouse-password', postController_1.default.post_clubhouse_password);
+router.post('/post/:id', postController_1.default.delete_post);

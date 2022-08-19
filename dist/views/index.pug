@@ -27,6 +27,7 @@ block content
           h5 Post by: #{post.user? post.user.username : "Can't find user"} Made on: #{post.createdAt.toDateString()}
         p= post.content
         if currentUser.admin
-          a(href=('/' + post._id + '/delete')) Delete post
+          form(method='POST' action=('/post/' + post._id))
+            button(type="submit") Delete post
   else
     h4 You need to sign in to view posts.

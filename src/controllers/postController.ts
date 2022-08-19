@@ -68,7 +68,26 @@ const PostController: any = {
         res.redirect('/');
       })
     }
-  ]
+  ],
+
+  delete_post: (req: Request, res: Response, next: NextFunction) => {
+    Post.findById(req.params.id).exec((err, post) => {
+      if (err){
+        return next(err);
+      }
+      if (post == null){
+        res.redirect('/');
+        return;
+      }
+      Post.findByIdAndRemove(req.params.id, (err: Error) => {
+        if (err){
+          return next(err);
+        }
+        res.redirect('/');
+      })
+
+    })
+  }
 
 
 }

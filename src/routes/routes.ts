@@ -23,4 +23,6 @@ router.post('/post-form', PostController.post_post_form);
 
 router.post('/clubhouse-password', PostController.post_clubhouse_password);
 
+router.post('/post/:id', PostController.delete_post);
+
 export {router as indexRouter};

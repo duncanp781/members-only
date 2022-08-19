@@ -67,6 +67,23 @@ const PostController = {
                 res.redirect('/');
             });
         }
-    ]
+    ],
+    delete_post: (req, res, next) => {
+        post_1.default.findById(req.params.id).exec((err, post) => {
+            if (err) {
+                return next(err);
+            }
+            if (post == null) {
+                res.redirect('/');
+                return;
+            }
+            post_1.default.findByIdAndRemove(req.params.id, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                res.redirect('/');
+            });
+        });
+    }
 };
 exports.default = PostController;
