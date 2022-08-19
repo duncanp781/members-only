@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import express from 'express';
-import AuthController from 'src/controllers/authController';
-import PostController from 'src/controllers/postController';
+import AuthController from '../controllers/authController';
+import PostController from '../controllers/postController';
 const router = express.Router();
 
 //Routes

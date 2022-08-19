@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import path from "path";
 import helmet from "helmet";
+import compression from "compression";
 import "dotenv/config";
 
 import express from "express";
@@ -19,18 +20,22 @@ import Post from "@models/post";
 import mongoose from "mongoose";
 import { ConnectionOptions } from "tls";
 
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 // Constants
 const app = express();
+
 /***********************************************************************************
  *                                  DB Setup
  **********************************************************************************/
 //Not sure why, but the connectionoptions doesn't have these options.
-mongoose.connect(process.env.MONGODB_URI as string, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-} as ConnectionOptions);
+mongoose.connect(
+  process.env.MONGODB_URI as string,
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  } as ConnectionOptions
+);
 const db = mongoose.connection;
 // eslint-disable-next-line no-console
 db.on("error", console.error.bind(console, "mongo connection error"));
@@ -43,6 +48,7 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(compression());
 
 // Show routes called in console during development
 if (process.env.NODE_ENV === "development") {
@@ -78,17 +84,17 @@ passport.use(
           return done(null, false, { message: "Incorrect Username" });
         }
         bcrypt.compare(password, user.password, (err, res) => {
-          if(err){
+          if (err) {
             return done(err, false);
           }
           if (res) {
             // passwords match! log user in
-            return done(null, user)
+            return done(null, user);
           } else {
             // passwords do not match!
-            return done(null, false, { message: "Incorrect password" })
+            return done(null, false, { message: "Incorrect password" });
           }
-        })
+        });
       }
     );
   })
@@ -110,11 +116,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Passport middleware to give us access to user
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.currentUser = req.user;
   next();
-})
-
+});
 
 /***********************************************************************************
  *                                  Front-end content

@@ -1,0 +1,10 @@
+extends layout
+
+block content 
+  h1=title
+  form(method='POST' action = '')
+    label(for='title') Post Title:
+    input#title(name='title' type='text' required=true value= (posttitle? posttitle : ''))
+    label(for='content') Post Content:
+    input#content(name='content' type='text' required=true value=(postContent? postContent : ''))
+    button(type='submit') Submit
